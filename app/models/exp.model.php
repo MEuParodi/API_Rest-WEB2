@@ -7,29 +7,45 @@ Class ExpModel {
         $this->db = new PDO('mysql:host=localhost;'.'dbname=db_holidays;charset=utf8', 'root', '');
     }
 
-   public function getAll($orderBy, $order, $limit, $page){
-       // $offset = $page * $limit - $limit;
-        // $params = []; //creo el array
+   public function getAll($orderBy, $order, $limit, $page, $column, $filtervalue){
+       
+        $params = []; //creo el array
         // if($orderBy){
         //     $queryStr .= "LIMIT :limit  OFFSET :offset";
         //     $params["limit"] = $limit;
         //     $params["offset"] = $offset;
 
         $query_sentence = "SELECT * FROM experience ";
-        //ordena datos sin paginar
-        if($orderBy != null && $order != null && $limit == null && $page == null){
-            $query_sentence = "SELECT * FROM experience ORDER BY $orderBy $order";
+        
+        if($column != null){
+            //aca tengo que ver si el $filter
+            $query_sentence .= " WHERE  $column = ?";
+            array_push($params, $filtervalue);
         }
-        //ordena y pagina
-        if($orderBy != null && $order != null && $page != null && $limit != null){
-            $query_sentence = "SELECT * FROM experience ORDER BY $orderBy $order LIMIT $limit OFFSET $offset";
+
+        if($orderBy != null){
+            $query_sentence .= "ORDER BY $orderBy";
+            //array_push($params, $orderBy); no va
         }
-        //Pagina datos sin ordenar
-        if($orderBy == null && $order == null && $page != null && $limit != null){
-            $query_sentence = "SELECT * FROM experience  LIMIT $limit OFFSET $offset";
+        if($order != null){
+            $query_sentence .= " $order";
+           // array_push($params, $order); no va
         }
+       
+        if($page == null){
+            $page=0;
+        }
+
+        if($limit != null){
+            $offset = $page * $limit - $limit;
+            $query_sentence .= " LIMIT  $limit OFFSET $offset";
+        }
+
+
+
+        //var_dump($query_sentence);
         $query = $this->db->prepare($query_sentence);
-        $query->execute();
+        $query->execute($params);
         $exps = $query->fetchAll(PDO::FETCH_OBJ); 
         return $exps;
     }

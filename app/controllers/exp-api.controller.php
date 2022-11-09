@@ -21,12 +21,28 @@ class ExpApiController {
     }
 
     public function getExps($params = null){
+        // aca podria hacer un for recorriendo todas las columnas de la tabla
             $orderBy = $_GET["orderBy"] ?? null;
             $order = $_GET["order"] ?? null;
             $limit = $_GET["limit"] ?? null;
             $page =  $_GET["page"] ?? null;
-            $filter =  $_GET["filterBy"] ?? null;  
-            $exps = $this->model->getAll($orderBy, $order, $limit, $page, $filter);
+            $column =  $_GET["column"] ?? null;  // ?column=nombre&filterval=nico  ?nombre=nico
+            $filtervalue = $_GET["filtervalue"] ?? null;
+            $columns = [
+                "id" => "id",
+                "place" => "place",
+                "days" => "days",
+                "price" => "price",
+                "description" => "description",
+                "boat_id" => "boat_id"
+            ];
+            foreach ($_GET as $key => $value) {
+                if(in_array(strtolower($key), $columns)){
+                    $column = $columns[strtolower ($key)];
+                    $filtervalue = $value;
+                }
+            }
+            $exps = $this->model->getAll($orderBy, $order, $limit, $page, $column, $filtervalue);
 
         if($exps)
             return $this->view->response($exps, 200);
@@ -44,18 +60,6 @@ class ExpApiController {
             $this->view->response("The experience id=$id does not exist", 404);
     }
 
-    //http://localhost/Web2/TPE-2/api/experiencies?BycualquirColumna
-    // revisarla con Nico esto tendria que ir adentro de getAll no? si no , quien llamaria a esta funcion?
-    public function GetByCodition ($params = null)  {
-        $column = $_GET["filterBy"] ?? null;
-        $value = $_GET["value"] ?? null; 
-        $exps = $this->model->GetByCodition($column, $value);
-        if($exps)
-        return $this->view->response($exps, 200);
-    else
-        $this->view->response("There are not experiences", 404);
- }
-    
     
     public function deleteExp($params = null) {
         $id = $params[':ID'];
