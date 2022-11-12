@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-10-2022 a las 20:04:56
+-- Tiempo de generación: 12-11-2022 a las 20:46:58
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -44,7 +44,7 @@ INSERT INTO `boat` (`boat_id`, `name`, `capacity`, `model`, `image`) VALUES
 (34, 'Sea Paradaise', 10, 'Triton 58', 'boat2.jpg'),
 (35, 'Second Wind', 8, 'H20', 'boat3.jpg'),
 (38, 'Dream Weaver', 9, 'Plenamar 30', 'boat4.jpg'),
-(39, 'Deep Blue', 12, 'Lagoo 230', 'boat5.jpg');
+(39, 'Deep Blue', 12, 'Lagoon 230', 'boat5.jpg');
 
 -- --------------------------------------------------------
 
@@ -66,11 +66,18 @@ CREATE TABLE `experience` (
 --
 
 INSERT INTO `experience` (`exp_id`, `place`, `days`, `price`, `description`, `boat_id`) VALUES
-(52, 'Maldives', 15, 900, 'Book Your Next Surf Trip from our Range of Hand Picked Maldives Surf Resorts and Charters. Awave Travel has the Best Selection of Surf Resorts and Charters in the Maldives.', 25),
-(61, 'Argentina', 16, 500, 'Enjoy and adventure of incredible days!!  Lots of activities, bar service, celebrations, entertainment, gaiming, kids programs, sports in land', 25),
-(62, 'Salomon Island', 10, 970, 'Lots of activities, bar service, celebrations, entertainment, gaiming, kids programs, sports in land', 38),
+(52, 'Maldives', 15, 970, 'Book Your Next Surf Trip from our Range of Hand Picked Maldives Surf Resorts and Charters. Awave Travel has the Best Selection of Surf Resorts and Charters in the Maldives.', 25),
+(61, 'Argentina', 16, 500, 'Enjoy and adventure of incredible days!!  Lots of activities, bar service, celebrations, entertainment, gaiming, kids programs, sports in land', 34),
+(62, 'Salomon Island', 10, 990, 'Lots of activities, bar service, celebrations, entertainment, gaiming, kids programs, sports in land', 38),
 (65, 'Florianopolis', 10, 850, 'Best price guarantee! Book soon for biggest savings!', 35),
-(67, 'Canaries', 18, 950, 'Procida, Napoli, Capri, Ischia, Amalfi, Positano. A wonderful Holiday on a sailboat in the most beautiful bays of the Mediterranean.', 25);
+(67, 'Canaries', 18, 950, 'Procida, Napoli, Capri, Ischia, Amalfi, Positano. A wonderful Holiday on a sailboat in the most beautiful bays of the Mediterranean.', 25),
+(90, 'Mediterranean', 29, 1000, 'To enhance the experience there is a restaurant on board that serves delicacies prepared by top chefs, a bar, sports equipment and entertainment.  Our boats cruise the most scenic areas of the Mediterranean.', 35),
+(91, 'Germany', 16, 500, 'Enjoy and adventure of incredible days!!  Lots of activities, bar service, celebrations, entertainment, gaiming, kids programs, sports in land', 34),
+(92, 'Spain', 16, 550, 'Enjoy and adventure of incredible days!! ', 34),
+(93, 'Cuba', 16, 450, 'Enjoy and adventure of incredible days!!', 34),
+(95, 'New Zealand', 15, 1550, 'Enjoy and adventure of incredible days!!', 25),
+(96, 'Australia', 25, 1650, 'Enjoy and adventure of incredible days!!', 38),
+(97, 'Philippines', 25, 1200, 'Enjoy 25 incredible days!!', 35);
 
 -- --------------------------------------------------------
 
@@ -122,13 +129,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `boat`
 --
 ALTER TABLE `boat`
-  MODIFY `boat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `boat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT de la tabla `experience`
 --
 ALTER TABLE `experience`
-  MODIFY `exp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `exp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
