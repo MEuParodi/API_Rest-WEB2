@@ -2,8 +2,7 @@
 require_once './app/models/exp-api.model.php';
 require_once './app/views/api.view.php';
 
-class ExpApiController
-{
+class ExpApiController {
     private $model;
     private $view;
     private $body;
@@ -43,7 +42,7 @@ class ExpApiController
             else
                 $this->view->response("There are not experiences", 404);
         } catch (Exception $e) {
-            return $this->view->response("Internal Server Error", 500);
+            return $this->view->response("Internal Server Error: $e->getMessage()", 500);
         }
     }
 
