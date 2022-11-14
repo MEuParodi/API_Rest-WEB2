@@ -37,7 +37,7 @@ class ExpApiController {
             } elseif ($filtercolumn == null) {
                 $exps = $this->model->getAll($orderBy, $order, $page, $limit);
             }
-            if ($exps != 0)
+            if (!empty($exps)) 
                 return $this->view->response($exps, 200);
             else
                 $this->view->response("There are not experiences", 404);
