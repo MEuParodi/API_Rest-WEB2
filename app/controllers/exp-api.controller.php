@@ -46,7 +46,7 @@ class ExpApiController {
     }
 
     private function verifyParams($filtercolumn, $filtervalue, $orderBy, $order, $page, $limit) {
-        $okParameters = 0;
+        $okParameters = 1;
   
 
         if ($filtercolumn != null){
@@ -70,8 +70,11 @@ class ExpApiController {
 
     var_dump(count($_GET));
     var_dump($okParameters);
-    var_dump($_GET);
-    
+
+    if (count($_GET) > $okParameters){
+        $this->view->response("One or more parameters are wrong", 400);
+        die;
+    }
 
         $columns = [
             "exp_id", 
@@ -112,10 +115,7 @@ class ExpApiController {
             die;
         }
 
-        if (count($_GET) > $okParameters){
-            $this->view->response("One or more parameters are wrong", 400);
-            die;
-        }
+
     }
 
     public function getExpById($params = null) {
