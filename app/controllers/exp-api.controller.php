@@ -39,7 +39,7 @@ class ExpApiController {
             if (!empty($exps)) 
                 return $this->view->response($exps, 200);
             else
-                $this->view->response("There are not experiences", 204);
+                $this->view->response("There are not experiences", 404);
         } catch (Exception $e) {
             return $this->view->response("Internal Server Error", 500);
         }
