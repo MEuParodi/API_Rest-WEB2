@@ -29,7 +29,6 @@ class ExpApiController {
             $limit = $_GET["limit"] ?? $this->limit_default;
 
             $exps = 0;
-
             $this->verifyParams($filtercolumn, $filtervalue, $orderBy, $order, $page, $limit);
 
             if (($filtercolumn != null) && ($filtervalue != null)) {
@@ -40,13 +39,34 @@ class ExpApiController {
             if (!empty($exps)) 
                 return $this->view->response($exps, 200);
             else
-                $this->view->response("There are not experiences", 404);
+                $this->view->response("There are not experiences", 204);
         } catch (Exception $e) {
-            return $this->view->response("Internal Server Error: $e->getMessage()", 500);
+            return $this->view->response("Internal Server Error", 500);
         }
     }
 
     private function verifyParams($filtercolumn, $filtervalue, $orderBy, $order, $page, $limit) {
+        $okParameters = 1;
+
+        if ($filtercolumn != null){
+            $okParameters ++;
+        }
+        if ($filtervalue != null){
+            $okParameters ++;
+        }
+        if (isset($_GET["orderBy"])){
+            $okParameters ++;
+        }
+        if (isset($_GET["order"])){
+            $okParameters ++;
+        }
+        if (isset($_GET["page"])){
+            $okParameters ++;
+        }
+        if (isset($_GET["limit"])){
+            $okParameters ++;
+        }
+
         $columns = [
             "exp_id", 
             "place", 
@@ -61,7 +81,7 @@ class ExpApiController {
             die;
         }
 
-        if ($filtercolumn != null && $filtervalue == null) {
+        if ($filtercolumn != null && ($filtervalue == null || !is_numeric($filtervalue))) {
             $this->view->response("Wrong or missing param filtervalue in GET request", 400);
             die;
         }
@@ -85,8 +105,12 @@ class ExpApiController {
             $this->view->response("Wrong query param limit in GET request", 400);
             die;
         }
-    }
 
+        if (count($_GET) > $okParameters){
+            $this->view->response("One or more parameters are wrong", 400);
+            die;
+        }
+    }
 
     public function getExpById($params = null) {
         $id = $params[':ID'];
