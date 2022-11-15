@@ -30,9 +30,9 @@ class ExpApiController {
 
             $exps = 0;
             $this->verifyParams($filtercolumn, $filtervalue, $orderBy, $order, $page, $limit);
-
             if (($filtercolumn != null) && ($filtervalue != null)) {
                 $exps = $this->model->getAllByColumn($orderBy, $order, $limit, $page, $filtercolumn, $filtervalue);
+
             } elseif ($filtercolumn == null) {
                 $exps = $this->model->getAll($orderBy, $order, $page, $limit);
             }
@@ -47,7 +47,6 @@ class ExpApiController {
 
     private function verifyParams($filtercolumn, $filtervalue, $orderBy, $order, $page, $limit) {
         $okParameters = 1;
-  
 
         if ($filtercolumn != null){
             $okParameters ++;
@@ -68,13 +67,10 @@ class ExpApiController {
             $okParameters ++;
         }
 
-    var_dump(count($_GET));
-    var_dump($okParameters);
-
-    if (count($_GET) > $okParameters){
-        $this->view->response("One or more parameters are wrong", 400);
-        die;
-    }
+        if (count($_GET) > $okParameters){
+            $this->view->response("One or more parameters are wrong", 400);
+            die;
+        }
 
         $columns = [
             "exp_id", 
