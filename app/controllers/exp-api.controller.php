@@ -46,25 +46,11 @@ class ExpApiController {
     }
 
     private function verifyParams($filtercolumn, $filtervalue, $orderBy, $order, $page, $limit) {
-        $okParameters = 1;
-
-        if ($filtercolumn != null){
-            $okParameters ++;
-        }
-        if ($filtervalue != null){
-            $okParameters ++;
-        }
-        if (isset($_GET["orderBy"])){
-            $okParameters ++;
-        }
-        if (isset($_GET["order"])){
-            $okParameters ++;
-        }
-        if (isset($_GET["page"])){
-            $okParameters ++;
-        }
-        if (isset($_GET["limit"])){
-            $okParameters ++;
+        $okParameters = 0;
+        foreach ($_GET as $valor) {
+            if (isset($valor)) {
+                $okParameters ++;
+            } 
         }
 
         $columns = [
